@@ -1,0 +1,29 @@
+<html lang="en">
+	<head>
+		<title>Snake</title>
+		<script src="scripts/jquery-3.6.3.js"></script>
+		<script src="scripts/jquery.modal.min.js"></script>
+		<script src="scripts/index.js"></script>
+		<link href="stylesheets/jquery.modal.min.css" rel="stylesheet" type="text/css"></link>
+		<link href="stylesheets/index.css" rel="stylesheet" type="text/css"></link>
+	</head>
+	<body id="snakeGame">
+		<div id="leftSection">
+			<h3 id="howPlayHeader">>How to play: </h3>
+			<div>Arrow keys to move</div>
+			<div>Eat apple to gain score</div>
+			<div>Don't hit wall or yourself</div>
+		</div>
+		<div id="mainSection">
+			<h1 id="mainSnakeHeader">Snake</h1>
+			<div id="gameInfoSection">
+				<div style="width: 50%">Score: <span id="currentScore"></span></div>
+				<div style="float: right; width: 50%">Tail Length: <span id="currentLength"></span></div>
+			</div>
+			<div id="snakeGrid"></div>
+		</div>
+		<div id="rightSection">
+			<button onclick="resetGame()">Reset Game</button>
+		</div>
+	</body>
+</html>

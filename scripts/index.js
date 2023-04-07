@@ -61,6 +61,13 @@ resetGame = function() {
 	placeApple();
 }
 
+setMapType = function(mapType, elem) {
+	currentMap = mapType;
+	resetGame();
+	$('#mapSelection .selected').removeClass('selected');
+	$(elem).addClass('selected');
+}
+
 renderSnakeGrid = function() {
 	let htmlToInsert = '';
 	
@@ -80,8 +87,6 @@ renderSnakeGrid = function() {
 		});
 		letter = String.fromCharCode(letter.charCodeAt(0) + 1);
 	});
-
-	setCellType('h8', 'snakeHead');
 }
 
 parseMap = function() {

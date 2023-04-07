@@ -92,6 +92,7 @@ button {
 	font-family: 'Nunito Sans', serif;
 	font-size: 15px;
 	text-shadow: 0 0 10px white;
+	cursor: pointer;
 }
 
 #mainSnakeHeader {
@@ -100,7 +101,7 @@ button {
 	margin-bottom: 30px;
 }
 
-.flicker, .flicker button {
+.flicker, .flicker button, .flicker #mapSelection, .flicker #mapSelection div {
 	text-shadow: 0 0 0;
 	color: grey;
 	border-color: grey;
@@ -117,6 +118,30 @@ button {
 
 #rightSection {
 	text-align: right;
+}
+
+#mapSelection {
+	border: 1px solid white;
+	width: 135px;
+	height: 150px;
+	overflow-y: auto;
+	margin-left: auto !important;
+}
+
+#mapSelection div {
+	border-bottom: 1px solid white;
+	padding: 4px;
+	cursor: pointer;
+}
+
+#mapSelection div.selected {
+	background-color: white;
+	color: black;
+}
+
+.flicker #mapSelection div.selected {
+	background-color: grey;
+	color: black;
 }
 
 #leftSection > *, #rightSection > * {

@@ -26,7 +26,22 @@
 			<div id="snakeGrid"></div>
 		</div>
 		<div id="rightSection">
-			<button onclick="resetGame()">Reset Game</button>
+			<div>
+				<button onclick="resetGame()">Reset Game</button>
+			</div>
+			<div>
+				<div id="mapSelection">
+					<div class="selected" onclick="setMapType('default', this)">Default</div>
+					<div onclick="setMapType('walledEdge', this)">Walled Edge</div>
+					<div onclick="setMapType('walledCorners', this)">Walled Corners</div>
+					<div onclick="setMapType('cross', this)">Cross</div>
+					<div onclick="setMapType('tunnels', this)">Tunnels</div>
+					<div onclick="setMapType('edges', this)">Edges</div>
+					<div onclick="setMapType('blocks', this)">Blocks</div>
+					<div onclick="setMapType('plus', this)">Plus</div>
+					<div onclick="setMapType('windmill', this)">Windmill</div>
+				</div>
+			</div>
 		</div>
 	</body>
 </html>

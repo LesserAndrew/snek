@@ -1,5 +1,5 @@
-const letterCoordinates = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i'];
-const numberCoordinates = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+let gridSize = 0;
+let currentMap = 'default';
 
 let movingLeft = false;
 let movingUp = false;
@@ -63,17 +63,71 @@ resetGame = function() {
 
 renderSnakeGrid = function() {
 	let htmlToInsert = '';
+	
+	let parsedMap = parseMap();
 
-	$(letterCoordinates).each(function() {
-		let letter = this;
-		$(numberCoordinates).each(function() {
-			let number = this;
-			
-			$('#snakeGrid').append(`<div class="default" id="${letter}${number}"></div>`);
+	let letter = 'a';
+	$(parsedMap).each(function() {
+		let row = this;
+		let number = 1;
+		$(row).each(function() {
+			let cell = this;
+			$('#snakeGrid').append(`<div class="${types[cell]}" id="${letter}${number}"></div>`);
+			if(number > gridSize) {
+				gridSize = number;
+			}
+			number++;
 		});
+		letter = String.fromCharCode(letter.charCodeAt(0) + 1);
 	});
 
-	setCellType('e5', 'snakeHead');
+	setCellType('h8', 'snakeHead');
+}
+
+parseMap = function() {
+	let mapData = maps[currentMap];
+	let resultMap = [];
+	let lastLetter;
+	let lastItem;
+	let currentRow = 0;
+	
+	$(mapData).each(function() {
+		let currentLine = this;
+		resultMap[currentRow] = [];;
+		lastLetter = undefined;
+		lastItem = undefined;
+		
+		for (let i = 0; i < currentLine.length; i++) {
+			let currentChar = currentLine[i];
+			let number = parseInt(currentChar);
+			
+			if(!isNaN(number)) {
+				if(typeof lastItem === 'number') {
+					number += (lastItem * 10) - lastItem;
+				}
+				
+				lastItem = number;
+				
+				while(number--) {
+					if(lastLetter) {
+						resultMap[currentRow].push(lastLetter);
+					} else {
+						resultMap[currentRow] = resultMap[currentRow - 1];
+						currentRow++;
+					}
+				}
+			} else {
+				resultMap[currentRow].push(currentChar);
+				lastItem = currentChar;
+				lastLetter = currentChar;
+			}
+		}
+		
+		if(resultMap[currentRow]) {
+			currentRow++;
+		}
+	});
+	return resultMap;
 }
 
 setCellType = function(coordinates, type) {
@@ -86,9 +140,9 @@ getCellType = function(coordinates) {
 }
 
 getRandomCell = function() {
-	letterCoordinateIndex = Math.round((Math.random() * 8));
-	letterCoordinate = letterCoordinates[letterCoordinateIndex];
-	numberCoordinate = Math.round((Math.random() * 8) + 1);
+	letterCoordinateIndex = Math.round((Math.random() * (gridSize - 1)) + 1);
+	letterCoordinate = String.fromCharCode(letterCoordinateIndex + 96);
+	numberCoordinate = Math.round((Math.random() * (gridSize - 1)) + 1);
 	return letterCoordinate + numberCoordinate;
 }
 
@@ -135,7 +189,7 @@ handleKeyPress = function(keyCode) {
 
 getNextLetterCoordinate = function(coordinate) {
 	let letter = coordinate.charAt(0);
-	if(letter === 'i') {
+	if(letter === String.fromCharCode(gridSize + 96)) {
 		return 'a';
 	} else {
 		return String.fromCharCode(letter.charCodeAt(0) + 1);
@@ -145,15 +199,15 @@ getNextLetterCoordinate = function(coordinate) {
 getLastLetterCoordinate = function(coordinate) {
 	let letter = coordinate.charAt(0);
 	if(letter === 'a') {
-		return 'i';
+		return String.fromCharCode(gridSize + 96);
 	} else {
 		return String.fromCharCode(letter.charCodeAt(0) - 1);
 	}
 }
 
 getNextNumberCoordinate = function(coordinate) {
-	let number = parseInt(coordinate.charAt(1));
-	if(number === 9) {
+	let number = parseInt(coordinate.substring(1));
+	if(number === gridSize) {
 		return 1;
 	} else {
 		return number + 1;
@@ -161,9 +215,9 @@ getNextNumberCoordinate = function(coordinate) {
 }
 
 getLastNumberCoordinate = function(coordinate) {
-	let number = parseInt(coordinate.charAt(1));
+	let number = parseInt(coordinate.substring(1));
 	if(number === 1) {
-		return 9;
+		return gridSize;
 	} else {
 		return number - 1;
 	}
@@ -200,7 +254,7 @@ moveSnake = function() {
 		setCellType(tailSegments.shift(), 'default');
 	}
 	let letterCoordinate = coordinates.charAt(0);
-	let numberCoordinate = coordinates.charAt(1);
+	let numberCoordinate = coordinates.substring(1);
 	if(movingDown || movingUp) {
 		if(movingUp) {
 			letterCoordinate = getLastLetterCoordinate(coordinates);

@@ -130,13 +130,13 @@ button {
 
 #snakeGrid {
 	display: grid;
-	grid-template-columns: repeat(9, 25px);
+	grid-template-columns: repeat(15, 20px);
 	margin-bottom: 75px;
 }
 
 #snakeGrid div {
-	width: 25px;
-	height: 25px;
+	width: 20px;
+	height: 20px;
 }
 
 #snakeGrid div.snakeHead {

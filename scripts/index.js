@@ -258,6 +258,25 @@ moveSnake = function() {
 	if(tailSegments.length > tailLength) {
 		setCellType(tailSegments.shift(), 'default');
 	}
+	let newCoord = getNextCoordinate(coordinates);
+	while(getCellType(newCoord) === 'empty') {
+		newCoord = getNextCoordinate(newCoord);
+	}
+	switch(getCellType(newCoord)) {
+		case 'apple':
+			tailLength++;
+			currentScore++;
+			renderStats();
+			placeApple();
+			break;
+		case 'wall':
+			clearInterval(currentGame);
+			break;
+	}
+	setCellType(newCoord, 'snakeHead');
+}
+
+getNextCoordinate = function(coordinates) {
 	let letterCoordinate = coordinates.charAt(0);
 	let numberCoordinate = coordinates.substring(1);
 	if(movingDown || movingUp) {
@@ -273,19 +292,7 @@ moveSnake = function() {
 			numberCoordinate = getNextNumberCoordinate(coordinates);
 		}
 	}
-	let newCoord = letterCoordinate + numberCoordinate;
-	switch(getCellType(newCoord)) {
-		case 'apple':
-			tailLength++;
-			currentScore++;
-			renderStats();
-			placeApple();
-			break;
-		case 'wall':
-			clearInterval(currentGame);
-			break;
-	}
-	setCellType(newCoord, 'snakeHead');
+	return letterCoordinate + numberCoordinate;
 }
 
 renderStats = function() {

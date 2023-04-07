@@ -1,4 +1,4 @@
-let types = {o: 'default', x: 'wall', s: 'snakeHead'};
+let types = {o: 'default', x: 'wall', s: 'snakeHead', e: 'empty'};
 
 let maps = {
 	default: [
@@ -94,5 +94,44 @@ let maps = {
 		'o2so1xo7',
 		'o5xo7',
 		'2',
+	],
+	small: [
+		'e14',
+		'2',
+		'e2o8e2',
+		'3',
+		'e2o3so3e2',
+		'e2o8e2',
+		'3',
+		'e14',
+		'2'
+	],
+	wormhole: [
+		'o14',
+		'4',
+		'o4e4o4',
+		'4',
+		'o14',
+		'1',
+		'o6so6',
+		'o14',
+		'1'
+	],
+	target: [
+		'o14',
+		'oe12o',
+		'oeo10eo',
+		'oeoe8oeo',
+		'oeoeo6eoeo',
+		'oeoeoe4oeoeo',
+		'oeoeoeo2eoeoeo',
+		'oeoeoeosoeoeoeo',
+		'oeoeoeo2eoeoeo',
+		'oeoeoe4oeoeo',
+		'oeoeo6eoeo',
+		'oeoe8oeo',
+		'oeo10eo',
+		'oe12o',
+		'o14',
 	]
 }

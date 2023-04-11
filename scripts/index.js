@@ -34,6 +34,7 @@ setInterval(function() {
 }, 50);
 
 $(document).ready(function() {
+	$('.creator').addClass('hidden');
 	renderSnakeGrid();
 	renderStats();
 	placeApple();
@@ -50,6 +51,10 @@ startGame = function() {
 }
 
 resetGame = function() {
+	movingLeft = false;
+	movingUp = false;
+	movingRight = false;
+	movingDown = false;
 	$('#snakeGrid').html('');
 	clearInterval(currentGame);
 	currentGame = undefined;
@@ -302,4 +307,86 @@ renderStats = function() {
 
 changeFrame = function() {
 	moveSnake();
+}
+
+// Map Creator
+
+let tileType;
+
+enterMapCreator = function() {
+	setMapType('custom', $('#mapSelection div:first-child')[0]);
+	$('.game').addClass('hidden');
+	$('.creator').removeClass('hidden');
+	$('#snakeGrid div').click(function(event) {
+		changeTileType(event.target.id);
+	});
+}
+
+exitMapCreator = function() {
+	setMapType('default', $('#mapSelection div:first-child')[0]);
+	$('.game').removeClass('hidden');
+	$('.creator').addClass('hidden');
+	$('#snakeGrid div').off('click');
+}
+
+creatorResetGame = function() {
+	resetGame();
+	$('#snakeGrid div').click(function(event) {
+		changeTileType(event.target.id);
+	});
+}
+
+exportMap = function() {
+	$('#importExportTextbox').val(JSON.stringify(maps.custom));
+}
+
+importMap = function() {
+	maps.custom = JSON.parse($('#importExportTextbox').val());
+	setMapType('custom', $('#mapSelection div:first-child')[0]);
+	$('#importExportTextbox').val('')
+}
+
+setTileTypeSelected = function(type) {
+	tileType = type;
+	$('.tile').removeClass('selected');
+	$('.tile.' + type).addClass('selected');
+}
+
+changeTileType = function(coordinates) {
+	if(tileType) {
+		let tileTypeLetter = '';
+		switch(tileType) {
+			case 'default':
+				tileTypeLetter = 'o';
+				break;
+			case 'snakeHead':
+				tileTypeLetter = 's';
+				let snakeHeadCoordinates = $('.snakeHead').not('.tile').attr('id');
+				let letterCoordinate = snakeHeadCoordinates.charAt(0);
+				let letterIndex = letterCoordinate.charCodeAt(0) - 97;
+				let numberCoordinate = parseInt(snakeHeadCoordinates.substring(1)) - 1;
+				$('#' + snakeHeadCoordinates).addClass('default');
+				maps.custom[letterIndex] = replaceCharAt(maps.custom[letterIndex], 'o', numberCoordinate);
+				$('.snakeHead').not('.tile').removeClass('snakeHead');
+				break;
+			case 'wall':
+				tileTypeLetter = 'x';
+				break;
+			case 'empty':
+				tileTypeLetter = 'e';
+				break;
+		}
+		let letterIndex = coordinates.charCodeAt(0) - 97;
+		let number = parseInt(coordinates.substring(1)) - 1;
+		let regenerateApple = getCellType(coordinates) === 'apple';
+		maps.custom[letterIndex] = replaceCharAt(maps.custom[letterIndex], tileTypeLetter, number);
+		setCellType(coordinates, tileType);
+		if(regenerateApple) {
+			placeApple();
+		}
+	}	
+}
+
+replaceCharAt = function(original, character, index) {
+	return original.substring(0, index) + character + original.substring(index + character.length);
 }

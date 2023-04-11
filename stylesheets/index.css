@@ -113,7 +113,7 @@ button {
 }
 
 #leftSection, #rightSection {
-	width: 175px;
+	width: 200px;
 }
 
 #rightSection {
@@ -144,7 +144,7 @@ button {
 	color: black;
 }
 
-#leftSection > *, #rightSection > * {
+#leftSection > *, #leftSection > * > *, #rightSection > *, #rightSection > * > * {
 	margin: 10px 0;
 }
 
@@ -159,31 +159,50 @@ button {
 	margin-bottom: 75px;
 }
 
-#snakeGrid div {
+#snakeGrid div, .tile {
 	width: 20px;
 	height: 20px;
+	cursor: pointer;
 }
 
-#snakeGrid div.snakeHead {
+#rightSection .tile {
+	margin: 0;
+}
+
+#snakeGrid div.snakeHead, .tile.snakeHead {
 	background-color: red;
 	box-shadow: 0 0 3px red;
 }
 
-#snakeGrid div.wall {
+#snakeGrid div.wall, .tile.wall {
 	background-color: grey;
 	box-shadow: 0 0 3px grey;
 }
 
-#snakeGrid div.apple {
+#snakeGrid div.apple, .tile.apple {
 	background-color: green;
 	box-shadow: 0 0 3px green;
 }
 
-#snakeGrid div.default {
+#snakeGrid div.default, .tile.default {
 	background-color: white;
 	box-shadow: 0 0 3px white;
 }
 
 #snakeGrid div.empty {
 	background-color: transparent;
+}
+
+.tile.empty {
+	border: 1px solid white;
+	height: 19px;
+	width: 19px;
+}
+
+.tile.selected {
+	margin-left: 10px !important;
+}
+
+.hidden {
+	display: none;
 }

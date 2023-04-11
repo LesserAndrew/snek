@@ -11,11 +11,21 @@
 	</head>
 	<body id="snakeGame">
 		<div id="leftSection">
-			<h3 id="howPlayHeader">>How to play: </h3>
-			<div>Arrow keys to move</div>
-			<div>Eat apple to gain score</div>
-			<div>Don't hit wall or yourself</div>
-			<div>Edges don't kill you</div>
+			<div class="game">
+				<h3 id="howPlayHeader">>How to play: </h3>
+				<div>Arrow keys to move</div>
+				<div>Eat apple to gain score</div>
+				<div>Don't hit wall or yourself</div>
+				<div>Edges don't kill you</div>
+			</div>
+			<div class="creator">
+				<h3 id="howUseHeader">>How to use: </h3>
+				<div>Click tile type to use</div>
+				<div>Click tile to place</div>
+				<div>Press direction to test at any time</div>
+				<div>Export will put map in text box</div>
+				<div>Import will use what's in text box</div>
+			</div>
 		</div>
 		<div id="mainSection">
 			<h1 id="mainSnakeHeader">Snake</h1>
@@ -26,23 +36,47 @@
 			<div id="snakeGrid"></div>
 		</div>
 		<div id="rightSection">
-			<div>
-				<button onclick="resetGame()">Reset Game</button>
+			<div class="game">
+				<div>
+					<button onclick="resetGame()">Reset Game</button>
+				</div>
+				<div>
+					<div id="mapSelection">
+						<div class="selected" onclick="setMapType('default', this)">Default</div>
+						<div onclick="setMapType('walledEdge', this)">Walled Edge</div>
+						<div onclick="setMapType('walledCorners', this)">Walled Corners</div>
+						<div onclick="setMapType('cross', this)">Cross</div>
+						<div onclick="setMapType('tunnels', this)">Tunnels</div>
+						<div onclick="setMapType('edges', this)">Edges</div>
+						<div onclick="setMapType('blocks', this)">Blocks</div>
+						<div onclick="setMapType('plus', this)">Plus</div>
+						<div onclick="setMapType('windmill', this)">Windmill</div>
+						<div onclick="setMapType('small', this)">Small</div>
+						<div onclick="setMapType('wormhole', this)">Wormhole</div>
+						<div onclick="setMapType('target', this)">Target</div>
+					</div>
+				</div>
+				<div>
+					<button onclick="enterMapCreator()">Map Creator</button>
+				</div>
 			</div>
-			<div>
-				<div id="mapSelection">
-					<div class="selected" onclick="setMapType('default', this)">Default</div>
-					<div onclick="setMapType('walledEdge', this)">Walled Edge</div>
-					<div onclick="setMapType('walledCorners', this)">Walled Corners</div>
-					<div onclick="setMapType('cross', this)">Cross</div>
-					<div onclick="setMapType('tunnels', this)">Tunnels</div>
-					<div onclick="setMapType('edges', this)">Edges</div>
-					<div onclick="setMapType('blocks', this)">Blocks</div>
-					<div onclick="setMapType('plus', this)">Plus</div>
-					<div onclick="setMapType('windmill', this)">Windmill</div>
-					<div onclick="setMapType('small', this)">Small</div>
-					<div onclick="setMapType('wormhole', this)">Wormhole</div>
-					<div onclick="setMapType('target', this)">Target</div>
+			<div class="creator">
+				<div onclick="setTileTypeSelected('default')" class="tile default"></div>
+				<div onclick="setTileTypeSelected('wall')" class="tile wall"></div>
+				<div onclick="setTileTypeSelected('snakeHead')" class="tile snakeHead"></div>
+				<div onclick="setTileTypeSelected('empty')" class="tile empty"></div>
+				<div>
+					<button onclick="creatorResetGame()">Reset Game</button>
+				</div>
+				<div>
+					<button onclick="exportMap()">Export Map</button>
+					<button onclick="importMap()">Import Map</button>
+				</div>
+				<div>
+					<textarea id="importExportTextbox"></textarea>
+				</div>
+				<div>
+					<button onclick="exitMapCreator()">Exit Map Creator</button>
 				</div>
 			</div>
 		</div>

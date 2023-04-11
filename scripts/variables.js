@@ -133,5 +133,22 @@ let maps = {
 		'oeo10eo',
 		'oe12o',
 		'o14',
+	],
+	custom: [
+		'ooooooooooooooo',
+		'ooooooooooooooo',
+		'ooooooooooooooo',
+		'ooooooooooooooo',
+		'ooooooooooooooo',
+		'ooooooooooooooo',
+		'ooooooooooooooo',
+		'ooooooosooooooo',
+		'ooooooooooooooo',
+		'ooooooooooooooo',
+		'ooooooooooooooo',
+		'ooooooooooooooo',
+		'ooooooooooooooo',
+		'ooooooooooooooo',
+		'ooooooooooooooo',
 	]
 }

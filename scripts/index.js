@@ -1,5 +1,6 @@
 let gridSize = 0;
 let currentMap = 'default';
+let highscore = parseInt(localStorage.getItem('default') || '0');
 
 let movingLeft = false;
 let movingUp = false;
@@ -68,6 +69,7 @@ resetGame = function() {
 
 setMapType = function(mapType, elem) {
 	currentMap = mapType;
+	refreshHighscore();
 	resetGame();
 	$('#mapSelection .selected').removeClass('selected');
 	$(elem).addClass('selected');
@@ -92,6 +94,14 @@ renderSnakeGrid = function() {
 		});
 		letter = String.fromCharCode(letter.charCodeAt(0) + 1);
 	});
+}
+
+refreshHighscore = function() {
+	highscore = parseInt(localStorage.getItem(currentMap) || '0');
+}
+
+saveHighscore = function() {
+	localStorage.setItem(currentMap, highscore);
 }
 
 parseMap = function() {
@@ -271,6 +281,11 @@ moveSnake = function() {
 		case 'apple':
 			tailLength++;
 			currentScore++;
+			if(currentScore > highscore) {
+				highscore = currentScore;
+				saveHighscore();
+				refreshHighscore();
+			}
 			renderStats();
 			placeApple();
 			break;
@@ -303,6 +318,7 @@ getNextCoordinate = function(coordinates) {
 renderStats = function() {
 	$('#currentScore').html(currentScore);
 	$('#currentLength').html(tailLength);
+	$('#currentHighscore').html(highscore);
 }
 
 changeFrame = function() {

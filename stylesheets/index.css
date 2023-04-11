@@ -153,10 +153,13 @@ button {
 	justify-content: space-between;
 }
 
+#extraGameInfoSection {
+	margin-bottom: 65px;
+}
+
 #snakeGrid {
 	display: grid;
 	grid-template-columns: repeat(15, 20px);
-	margin-bottom: 75px;
 }
 
 #snakeGrid div, .tile {

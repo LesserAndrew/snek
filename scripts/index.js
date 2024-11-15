@@ -48,7 +48,7 @@ $(document).ready(function() {
 });
 
 startGame = function() {
-	currentGame = setInterval(changeFrame, 250);
+	currentGame = setInterval(changeFrame, 150);
 }
 
 resetGame = function() {
@@ -76,8 +76,6 @@ setMapType = function(mapType, elem) {
 }
 
 renderSnakeGrid = function() {
-	let htmlToInsert = '';
-	
 	let parsedMap = parseMap();
 
 	let letter = 'a';
